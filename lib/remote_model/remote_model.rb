@@ -33,7 +33,7 @@ module RemoteModule
       end
 
       def pluralize
-        self.to_s.pluralize
+        self.to_s.downcase + "s"
       end
 
       def method_missing(method, *args, &block)
