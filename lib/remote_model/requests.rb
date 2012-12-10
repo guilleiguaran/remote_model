@@ -58,7 +58,12 @@ module RemoteModule
         if fragment[0..3] == "http"
           return fragment
         end
-        (self.root_url || RemoteModule::RemoteModel.root_url) + fragment +  self.extension
+        if fragment.index("?").nil?
+          fragment_with_extension = fragment +  self.extension
+        else
+          fragment_with_extension = fragment.gsub("?", "#{self.extension}?")
+        end
+        (self.root_url || RemoteModule::RemoteModel.root_url) + fragment_with_extension
       end
 
       def http_call(method, url, call_options = {}, &block)
